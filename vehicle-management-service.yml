@@ -32,7 +32,7 @@ logging:
     
 todays:
   vehicle:
-    fare: 15
+    fare: 20
     per:
       km: 1
 
