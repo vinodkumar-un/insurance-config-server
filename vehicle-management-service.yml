@@ -1,54 +1,62 @@
 spring:
   application:
     name: vehicle-management-service
-    
   jpa:
     show-sql: true
     generate-ddl: true
-  profiles:
-    active:
-    - dev
   cloud:
     config:
       uri:
-      - http://localhost:8282/
-      #profile: dev
-    
+      - http://localhost:8888/
+      profile: dev
+      
 management:
   endpoints:
     web:
       exposure:
         include: "*"
+        
 springdoc:
   swagger-ui:
     path: /vehicle-service.html
   api-docs:
     enabled: true
     path: /vehicle-service.doc
+    
+server:
+  port: 9191
+  
+logging:
+  level:
+    root: info
+    
+todays:
+  vehicle:
+    fare: 15
+    per:
+      km: 1
+
 ---
 spring:
-  cloud:
-    config:
-      profile: dev
+  config:
+    activate:
+      on-profile: dev
   datasource:
     username: root
     password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
     #url: jdbc:mysql://localhost:3306/vehicle-management-service
     url: jdbc:mysql://localhost:3307/vehicle-management-service
-    driver-class-name: com.mysql.cj.jdbc.Driver
+
   jpa:
     hibernate:
       ddl-auto: update
 
-server:
-  port: 9191
-
-  
 ---
 spring:
-  cloud:
-    config:
-      profile: stage
+  config:
+    activate:
+      on-profile: dev
   h2:
     console:
       enabled: true
