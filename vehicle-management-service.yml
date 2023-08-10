@@ -12,15 +12,13 @@ spring:
     config:
       uri:
       - http://localhost:8282/
+      #profile: dev
     
 management:
   endpoints:
     web:
       exposure:
         include: "*"
-server:
-  port: 9191
-   
 springdoc:
   swagger-ui:
     path: /vehicle-service.html
@@ -29,24 +27,28 @@ springdoc:
     path: /vehicle-service.doc
 ---
 spring:
-  profiles:
-  - dev
+  cloud:
+    config:
+      profile: dev
   datasource:
     username: root
     password: root
-    url: jdbc:mysql://localhost:3306/vehicle-management-service
+    #url: jdbc:mysql://localhost:3306/vehicle-management-service
+    url: jdbc:mysql://localhost:3307/vehicle-management-service
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
-    
 
+server:
+  port: 9191
 
   
 ---
 spring:
-  profiles:
-  - stage
+  cloud:
+    config:
+      profile: stage
   h2:
     console:
       enabled: true
